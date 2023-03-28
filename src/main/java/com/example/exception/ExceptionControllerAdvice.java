@@ -10,6 +10,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(NotEnoughMoneyException.class)
     public ResponseEntity<ErrorDetails> exceptionNotEnoughMoneyHandler() {
+        System.err.println("Nihera ne rabotaet");
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setMessage("Not enough money to make the payment.");
         return ResponseEntity

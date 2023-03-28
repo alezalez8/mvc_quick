@@ -3,7 +3,7 @@ package com.example.model;
 public class PaymentDetails {
 
 
-    private double amount;
+    private double amount = 500;
 
     public double getAmount() {
         return amount;
