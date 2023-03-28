@@ -2,6 +2,7 @@ package com.example.model;
 
 public class PaymentDetails {
 
+
     private double amount;
 
     public double getAmount() {
