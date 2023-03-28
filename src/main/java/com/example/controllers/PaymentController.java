@@ -1,15 +1,11 @@
 package com.example.controllers;
 
 
-import com.example.exception.NotEnoughMoneyException;
-import com.example.model.ErrorDetails;
 import com.example.model.PaymentDetails;
 import com.example.services.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,22 +19,13 @@ public class PaymentController {
     }
 
     @PostMapping("/payment")
-    public ResponseEntity<?> makePayment() {
-        try {
-            PaymentDetails paymentDetails = paymentService.processPayment();
+    public ResponseEntity<PaymentDetails> makePayment() {
+        PaymentDetails paymentDetails = paymentService.processPayment();
 
-            return ResponseEntity
-                    .accepted()
-                    //.status(HttpStatus.ACCEPTED)
-                    .body(paymentDetails.getAmount());
+        return ResponseEntity
+                //.badRequest()
+                .status(HttpStatus.ACCEPTED)
+                .body(paymentDetails);
 
-        } catch (NotEnoughMoneyException e) {
-            ErrorDetails errorDetails = new ErrorDetails();
-            errorDetails.setMessage("Not enough money to make the payment.");
-            return ResponseEntity
-                    //.badRequest()
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(errorDetails);
-        }
     }
 }
